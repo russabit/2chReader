@@ -16,7 +16,7 @@ public class RecyclerFragmentViewModel extends ViewModel {
         if (observableFeed!=null) {
             return;
         }
-        threadsRepository = threadsRepository.getInstance();
+        threadsRepository = ThreadsRepository.getInstance();
         observableFeed = this.threadsRepository.getFeed();
     }
 

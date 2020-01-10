@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -82,7 +83,6 @@ public class MessagesRecyclerFragment extends Fragment implements RecyclerViewAd
             @Override
             public void onSubscribe(Disposable d) { }
 
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onNext(Messages s) {
                 Timber.d("onNext: called");
@@ -98,9 +98,7 @@ public class MessagesRecyclerFragment extends Fragment implements RecyclerViewAd
                 msgRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
-
         initRecyclerView(view);
-
     }
 
     private void initRecyclerView(View view) {

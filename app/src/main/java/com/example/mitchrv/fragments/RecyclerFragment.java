@@ -1,10 +1,12 @@
 package com.example.mitchrv.fragments;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,7 +31,8 @@ public class RecyclerFragment extends Fragment implements RecyclerViewAdapter.On
     private RecyclerViewAdapter recyclerViewAdapter;
     private InterfaceMainActivity mInterfaceMainActivity;
     private RecyclerFragmentViewModel mRecyclerFragmentViewModel;
-
+    ProgressBar progressBar;
+    boolean progressBarIsShowing;
 
     @Override
     public void onViewClick(int position) {
@@ -62,7 +65,8 @@ public class RecyclerFragment extends Fragment implements RecyclerViewAdapter.On
 
 
         //this or getActivity() inside of()
-        mRecyclerFragmentViewModel = ViewModelProviders.of(this)
+        mRecyclerFragmentViewModel = ViewModelProviders
+                .of(this)
                 .get(RecyclerFragmentViewModel.class);
 
 
@@ -72,12 +76,21 @@ public class RecyclerFragment extends Fragment implements RecyclerViewAdapter.On
         mRecyclerFragmentViewModel.getFeed().subscribe(new Observer<String>() {
 
             @Override
-            public void onSubscribe(Disposable d) {}
+            public void onSubscribe(Disposable d) {
+                progressBar = view.findViewById(R.id.progressbar);
+                if (!progressBarIsShowing) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressBarIsShowing = true;
+                    Timber.d("pidor");
+                }
+            }
 
             @Override
             public void onNext(String path) {
                 Timber.d("onNext: called");
-                //recyclerViewAdapter.notifyDataSetChanged();
+                progressBar = view.findViewById(R.id.progressbar);
+                progressBar.setVisibility(View.GONE);
+                Timber.d("Called after progress bar killed");
             }
 
             @Override
@@ -106,8 +119,6 @@ public class RecyclerFragment extends Fragment implements RecyclerViewAdapter.On
         //adds a divider line between the rows
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
                 LinearLayoutManager.VERTICAL));
-
     }
-
 
 }

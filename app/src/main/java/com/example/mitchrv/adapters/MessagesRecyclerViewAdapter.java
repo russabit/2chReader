@@ -25,15 +25,16 @@ import timber.log.Timber;
 
 public class MessagesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final String TAG = "RecyclerViewAdapter";
-
     private ArrayList<String> mComments;
     private ArrayList<String> mImages;
     private Context mContext;
 
     private RecyclerViewAdapter.OnViewListener mOnViewListener;
 
-    public MessagesRecyclerViewAdapter(Context mContext, ArrayList<String> mComments, ArrayList<String> mImages, RecyclerViewAdapter.OnViewListener mOnViewListener) {
+    public MessagesRecyclerViewAdapter(Context mContext,
+                                       ArrayList<String> mComments,
+                                       ArrayList<String> mImages,
+                                       RecyclerViewAdapter.OnViewListener mOnViewListener) {
         this.mContext = mContext;
         this.mComments = mComments;
         this.mImages = mImages;
@@ -56,17 +57,20 @@ public class MessagesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         Timber.d("onCreateViewHolder: called.");
 
         if (viewType == R.layout.layout_listitem_msg_img) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem_msg_img, parent, false);
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.layout_listitem_msg_img, parent, false);
             viewHolder = new ImageViewHolder(view, mOnViewListener);
         } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem_msg, parent, false);
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.layout_listitem_msg, parent, false);
             viewHolder = new ViewHolder(view, mOnViewListener);
         }
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder,
+                                 final int position) {
         Timber.d("onBindViewHolder: called.");
 
         if (viewHolder instanceof ImageViewHolder) {
@@ -88,13 +92,15 @@ public class MessagesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         return mComments.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView comment;
         RelativeLayout parentLayout;
 
         RecyclerViewAdapter.OnViewListener onViewListener;
 
-        public ViewHolder(@NonNull View itemView, RecyclerViewAdapter.OnViewListener onViewListener) {
+        public ViewHolder(@NonNull View itemView,
+                          RecyclerViewAdapter.OnViewListener onViewListener) {
             super(itemView);
             comment = itemView.findViewById(R.id.comment_msg);
             parentLayout = itemView.findViewById(R.id.msg_layout);
@@ -118,7 +124,7 @@ public class MessagesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
         RecyclerViewAdapter.OnViewListener onViewListener;
 
-        public ImageViewHolder(@NonNull View itemView, RecyclerViewAdapter.OnViewListener onViewListener) {
+        ImageViewHolder(@NonNull View itemView, RecyclerViewAdapter.OnViewListener onViewListener) {
             super(itemView);
             image = itemView.findViewById(R.id.image_msg);
             comment = itemView.findViewById(R.id.comment_msg_img);

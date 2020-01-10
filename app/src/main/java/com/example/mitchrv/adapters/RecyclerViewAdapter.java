@@ -23,8 +23,6 @@ import timber.log.Timber;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private static final String TAG = "RecyclerViewAdapter";
-
     private ArrayList<String> mImageNames;
     private ArrayList<String> mImages;
     private Context mContext;
@@ -89,7 +87,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    //better wat to implement onClick:
+    //better way to implement onClick:
 
     public interface OnViewListener {
         void onViewClick(int position);
