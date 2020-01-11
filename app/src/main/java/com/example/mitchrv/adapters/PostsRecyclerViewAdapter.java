@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import timber.log.Timber;
 
-public class MessagesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PostsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<String> mComments;
     private ArrayList<String> mImages;
@@ -28,10 +28,10 @@ public class MessagesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     private ThreadsRecyclerViewAdapter.OnViewListener mOnViewListener;
 
-    public MessagesRecyclerViewAdapter(Context mContext,
-                                       ArrayList<String> mComments,
-                                       ArrayList<String> mImages,
-                                       ThreadsRecyclerViewAdapter.OnViewListener mOnViewListener) {
+    public PostsRecyclerViewAdapter(Context mContext,
+                                    ArrayList<String> mComments,
+                                    ArrayList<String> mImages,
+                                    ThreadsRecyclerViewAdapter.OnViewListener mOnViewListener) {
         this.mContext = mContext;
         this.mComments = mComments;
         this.mImages = mImages;

@@ -6,18 +6,18 @@ import com.example.mitchrv.repositories.ThreadsRepository;
 import java.util.ArrayList;
 import io.reactivex.Observable;
 
-public class RecyclerFragmentViewModel extends ViewModel {
+public class ThreadsFragmentViewModel extends ViewModel {
 
     private Observable<String> observableFeed;
 
     private ThreadsRepository threadsRepository;
 
-    public void init() {
+    public void init(String boardChar) {
         if (observableFeed!=null) {
             return;
         }
         threadsRepository = ThreadsRepository.getInstance();
-        observableFeed = this.threadsRepository.getFeed();
+        observableFeed = this.threadsRepository.getFeed(boardChar);
     }
 
     public Observable<String> getFeed() {

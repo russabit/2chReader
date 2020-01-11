@@ -1,5 +1,6 @@
 package com.example.mitchrv.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mitchrv.APIs.BoardsInterface;
 import com.example.mitchrv.APIs.InterfaceMainActivity;
 import com.example.mitchrv.R;
 import com.example.mitchrv.adapters.BoardsRecyclerViewAdapter;
@@ -23,10 +25,15 @@ import timber.log.Timber;
 
 public class BoardsFragment extends Fragment implements BoardsRecyclerViewAdapter.OnViewListener {
 
-    ArrayList<String> boardChars = new ArrayList<>();
-    ArrayList<String> boardNames = new ArrayList<>();
+    private ArrayList<String> boardChars = new ArrayList<>();
+    private ArrayList<String> boardNames = new ArrayList<>();
+    private BoardsInterface boardsInterface;
 
-    BoardsRecyclerViewAdapter boardsRecyclerViewAdapter;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        boardsInterface = (BoardsInterface) getActivity();
+    }
 
     @Nullable
     @Override
@@ -35,15 +42,16 @@ public class BoardsFragment extends Fragment implements BoardsRecyclerViewAdapte
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_boards_recycler, null);
         initRecyclerView(view);
-        Timber.d("Хуй соси");
         return view;
     }
 
     private void initRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.boards_recycler);
-        boardChars.addAll(Arrays.asList("pr", "b", "vg", "soc", "trv", "sex", "tes"));
-        boardNames.addAll(Arrays.asList("Программирование", "Бред", "Видеоигры", "Social", "Путешествия", "Секс и отношения", "The Elder Scrolls"));
-        boardsRecyclerViewAdapter = new BoardsRecyclerViewAdapter(getActivity(), boardChars, boardNames, this);
+        if (boardChars.size() == 0 && boardNames.size() == 0) {
+            boardChars.addAll(Arrays.asList("au", "bi", "biz", "c", "cc", "em", "fa", "fiz", "fl", "ftb", "hi", "me", "mg", "mlp", "mo", "mov","mu","ne","psy","re","sci","sf"));
+            boardNames.addAll(Arrays.asList("Автомобили", "Велосипеды", "Бизнес", "Комиксы", "Криптовалюты", "Другие страны", "Мода и стиль", "Физкультура", "Ин.языки", "Футбол", "История", "Медицина", "Магия", "Пони", "Мотоциклы", "Фильмы", "Музыка", "Животные", "Психология", "Религия", "Наука", "Научная фантастика"));
+        }
+        BoardsRecyclerViewAdapter boardsRecyclerViewAdapter = new BoardsRecyclerViewAdapter(getActivity(), boardChars, boardNames, this);
         recyclerView.setAdapter(boardsRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
@@ -52,6 +60,7 @@ public class BoardsFragment extends Fragment implements BoardsRecyclerViewAdapte
 
     @Override
     public void onViewClick(int position) {
-        Timber.d("onViewClick: clicked!");
+        Timber.d("onViewClick: clicked! %s", boardChars.get(position));
+        boardsInterface.inflateThreadsFragment(boardChars.get(position));
     }
 }

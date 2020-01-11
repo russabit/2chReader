@@ -15,10 +15,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mitchrv.APIs.BoardsInterface;
 import com.example.mitchrv.APIs.InterfaceMainActivity;
 import com.example.mitchrv.R;
 import com.example.mitchrv.adapters.ThreadsRecyclerViewAdapter;
-import com.example.mitchrv.viewmodels.RecyclerFragmentViewModel;
+import com.example.mitchrv.viewmodels.ThreadsFragmentViewModel;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -29,18 +30,9 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
 
     private ThreadsRecyclerViewAdapter recyclerViewAdapter;
     private InterfaceMainActivity mInterfaceMainActivity;
-    private RecyclerFragmentViewModel mRecyclerFragmentViewModel;
-    ProgressBar progressBar;
-    boolean progressBarIsShowing;
-
-    @Override
-    public void onViewClick(int position) {
-        Timber.d("onViewClick: clicked!");
-        mInterfaceMainActivity.inflateFragment(
-                mRecyclerFragmentViewModel.getImageUrls().get(position),
-                mRecyclerFragmentViewModel.getNames().get(position),
-                mRecyclerFragmentViewModel.getNums().get(position));
-    }
+    private ThreadsFragmentViewModel threadsFragmentViewModel;
+    private ProgressBar progressBar;
+    private boolean progressBarIsShowing;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -55,24 +47,25 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recycler, null);
 
-        initImageBitmaps(view);
+        String boardChar = getArguments().getString("boardChar");
+        initImageBitmaps(view, boardChar);
 
         return view;
     }
 
-    private void initImageBitmaps(View view) {
+    private void initImageBitmaps(View view, String boardChar) {
 
 
         //this or getActivity() inside of()
-        mRecyclerFragmentViewModel = ViewModelProviders
+        threadsFragmentViewModel = ViewModelProviders
                 .of(this)
-                .get(RecyclerFragmentViewModel.class);
+                .get(ThreadsFragmentViewModel.class);
 
 
-        mRecyclerFragmentViewModel.init();
+        threadsFragmentViewModel.init(boardChar);
 
         //was observable.subscribe(...
-        mRecyclerFragmentViewModel.getFeed().subscribe(new Observer<String>() {
+        threadsFragmentViewModel.getFeed().subscribe(new Observer<String>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -80,7 +73,6 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
                 if (!progressBarIsShowing) {
                     progressBar.setVisibility(View.VISIBLE);
                     progressBarIsShowing = true;
-                    Timber.d("pidor");
                 }
             }
 
@@ -110,8 +102,8 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
         recyclerViewAdapter = new ThreadsRecyclerViewAdapter(getActivity(),
-                mRecyclerFragmentViewModel.getNames(),
-                mRecyclerFragmentViewModel.getImageUrls(), this);
+                threadsFragmentViewModel.getNames(),
+                threadsFragmentViewModel.getImageUrls(), this);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -120,4 +112,12 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
                 LinearLayoutManager.VERTICAL));
     }
 
+    @Override
+    public void onViewClick(int position) {
+        Timber.d("onViewClick: clicked!");
+        mInterfaceMainActivity.inflateFragment(
+                threadsFragmentViewModel.getImageUrls().get(position),
+                threadsFragmentViewModel.getNames().get(position),
+                threadsFragmentViewModel.getNums().get(position));
+    }
 }

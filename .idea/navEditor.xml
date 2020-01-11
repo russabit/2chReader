@@ -8,6 +8,27 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="boardsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_threadsFragment_to_recyclerFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="infoFragment">
                     <value>
                       <LayoutPositions>
@@ -20,7 +41,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="messagesRecyclerFragment">
+                  <entry key="postsFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -41,27 +62,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="recyclerFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="23" />
-                            <option name="y" value="10" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_recyclerFragment_to_messagesRecyclerFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="threadsFragment">
                     <value>
                       <LayoutPositions>
@@ -73,7 +73,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_threadsFragment_to_recyclerFragment2">
+                            <entry key="action_recyclerFragment_to_messagesRecyclerFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

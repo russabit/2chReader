@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mitchrv.R;
-import com.example.mitchrv.adapters.MessagesRecyclerViewAdapter;
+import com.example.mitchrv.adapters.PostsRecyclerViewAdapter;
 import com.example.mitchrv.adapters.ThreadsRecyclerViewAdapter;
 import com.example.mitchrv.model.Messages;
-import com.example.mitchrv.viewmodels.MessageRecyclerFragmentViewModel;
+import com.example.mitchrv.viewmodels.PostsFragmentViewModel;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -25,8 +25,8 @@ import timber.log.Timber;
 
 public class PostsFragment extends Fragment implements ThreadsRecyclerViewAdapter.OnViewListener {
 
-    private MessagesRecyclerViewAdapter msgRecyclerViewAdapter;
-    private MessageRecyclerFragmentViewModel mMessageRecyclerFragmentViewModel;
+    private PostsRecyclerViewAdapter msgRecyclerViewAdapter;
+    private PostsFragmentViewModel postsFragmentViewModel;
 
     @Override
     public void onViewClick(int position) {
@@ -53,10 +53,10 @@ public class PostsFragment extends Fragment implements ThreadsRecyclerViewAdapte
 
     private void initImageBitmaps(View view, int num) {
         Timber.d("initImageBitmaps called");
-        mMessageRecyclerFragmentViewModel = ViewModelProviders.of(this)
-                .get(MessageRecyclerFragmentViewModel.class);
+        postsFragmentViewModel = ViewModelProviders.of(this)
+                .get(PostsFragmentViewModel.class);
 
-        mMessageRecyclerFragmentViewModel.getMessages(num).subscribe(new Observer<Messages>() {
+        postsFragmentViewModel.getMessages(num).subscribe(new Observer<Messages>() {
 
             @Override
             public void onSubscribe(Disposable d) { }
@@ -73,10 +73,11 @@ public class PostsFragment extends Fragment implements ThreadsRecyclerViewAdapte
 
             @Override
             public void onComplete() {
+                initRecyclerView(view);
                 msgRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
-        initRecyclerView(view);
+
     }
 
     private void initRecyclerView(View view) {
@@ -85,10 +86,10 @@ public class PostsFragment extends Fragment implements ThreadsRecyclerViewAdapte
 
         RecyclerView msgRecyclerView = view.findViewById(R.id.msg_recycler);
         msgRecyclerView.setHasFixedSize(false);
-        msgRecyclerViewAdapter = new MessagesRecyclerViewAdapter(
+        msgRecyclerViewAdapter = new PostsRecyclerViewAdapter(
                 getActivity(),
-                mMessageRecyclerFragmentViewModel.getComments(),
-                mMessageRecyclerFragmentViewModel.getImageUrls(),
+                postsFragmentViewModel.getComments(),
+                postsFragmentViewModel.getImageUrls(),
                 this);
         msgRecyclerView.setAdapter(msgRecyclerViewAdapter);
         msgRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));

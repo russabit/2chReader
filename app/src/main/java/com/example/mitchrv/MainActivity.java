@@ -11,12 +11,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.mitchrv.APIs.BoardsInterface;
 import com.example.mitchrv.APIs.InterfaceMainActivity;
 
 import dagger.android.support.DaggerAppCompatActivity;
 import timber.log.Timber;
 
-public class MainActivity extends DaggerAppCompatActivity implements InterfaceMainActivity {
+public class MainActivity extends DaggerAppCompatActivity implements InterfaceMainActivity, BoardsInterface {
     //vars
     NavController navController;
 
@@ -141,5 +142,15 @@ public class MainActivity extends DaggerAppCompatActivity implements InterfaceMa
         args.putInt("num", name);
 
         navController.navigate(R.id.postsFragment, args);
+    }
+
+    @Override
+    public void inflateThreadsFragment(String boardChar) {
+        Timber.d("inflateThreadsFragment called %s", boardChar);
+
+        Bundle args = new Bundle();
+        args.putString("boardChar", boardChar);
+
+        navController.navigate(R.id.threadsFragment, args);
     }
 }

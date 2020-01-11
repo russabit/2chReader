@@ -18,22 +18,22 @@ import timber.log.Timber;
 
 //Singleton pattern
 
-public class MessagesRepository {
+public class PostsRepository {
 
-    private static final String TAG = "MessagesRepository";
+    private static final String TAG = "PostsRepository";
 
-    private static MessagesRepository instance;
+    private static PostsRepository instance;
     private ArrayList<String> mComments = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
 
     private static final String BASE_URL = "https://2ch.hk/";
     @Nullable
-    private Messages threadMessageCash = null;
+    private Messages postsCash = null;
 
     private HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 
-    public static MessagesRepository getInstance() {
-        if (instance == null) instance = new MessagesRepository();
+    public static PostsRepository getInstance() {
+        if (instance == null) instance = new PostsRepository();
         instance.interceptor.level(HttpLoggingInterceptor.Level.BODY);
         return instance;
     }
@@ -54,9 +54,9 @@ public class MessagesRepository {
 
     public Observable<Messages> getMessages(int num) {
 
-        if (threadMessageCash != null) {
+        if (postsCash != null) {
             Timber.d("from cash");
-            return Observable.just(threadMessageCash);
+            return Observable.just(postsCash);
         } else {
             Timber.d("from net");
             return dvachMessageAPI
@@ -71,7 +71,7 @@ public class MessagesRepository {
                         Timber.d("inside RX - mImageUrls.size(): %s", mImageUrls.size());
                         Timber.d("initImageBitmaps: mImageUrls: %s", mImageUrls);
                     })
-                    .doOnNext(messages -> threadMessageCash = messages);
+                    .doOnNext(messages -> postsCash = messages);
         }
     }
 
@@ -86,7 +86,7 @@ public class MessagesRepository {
     public void removeComments() {
         if (!mComments.isEmpty())
             mComments.clear();
-    }
+}
 
     public void removeImages() {
         if (!mImageUrls.isEmpty())

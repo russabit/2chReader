@@ -3,7 +3,7 @@ package com.example.mitchrv.viewmodels;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mitchrv.model.Messages;
-import com.example.mitchrv.repositories.MessagesRepository;
+import com.example.mitchrv.repositories.PostsRepository;
 
 import java.util.ArrayList;
 
@@ -12,34 +12,34 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class MessageRecyclerFragmentViewModel extends ViewModel {
+public class PostsFragmentViewModel extends ViewModel {
 
-    private MessagesRepository messagesRepository = new MessagesRepository();
+    private PostsRepository postsRepository = new PostsRepository();
 
-    public MessageRecyclerFragmentViewModel() {
+    public PostsFragmentViewModel() {
         Timber.i("init");
     }
 
     public Observable<Messages> getMessages(int num) {
-        return messagesRepository.getMessages(num)
+        return postsRepository.getMessages(num)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     public ArrayList<String> getComments() {
-        return messagesRepository.getComments();
+        return postsRepository.getComments();
     }
 
     public ArrayList<String> getImageUrls() {
-        return messagesRepository.getImageUrls();
+        return postsRepository.getImageUrls();
     }
 
     public void clearComments() {
-        messagesRepository.removeComments();
+        postsRepository.removeComments();
     }
 
     public void clearImages() {
-        messagesRepository.removeImages();
+        postsRepository.removeImages();
     }
 
 
