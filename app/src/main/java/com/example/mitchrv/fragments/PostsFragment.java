@@ -1,51 +1,29 @@
 package com.example.mitchrv.fragments;
 
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mitchrv.APIs.DvachMessageAPI;
-import com.example.mitchrv.APIs.InterfaceMainActivity;
-import com.example.mitchrv.CustomInterceptor;
 import com.example.mitchrv.R;
 import com.example.mitchrv.adapters.MessagesRecyclerViewAdapter;
-import com.example.mitchrv.adapters.RecyclerViewAdapter;
-import com.example.mitchrv.model.Files;
+import com.example.mitchrv.adapters.ThreadsRecyclerViewAdapter;
 import com.example.mitchrv.model.Messages;
 import com.example.mitchrv.viewmodels.MessageRecyclerFragmentViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
-public class MessagesRecyclerFragment extends Fragment implements RecyclerViewAdapter.OnViewListener {
+public class PostsFragment extends Fragment implements ThreadsRecyclerViewAdapter.OnViewListener {
 
     private MessagesRecyclerViewAdapter msgRecyclerViewAdapter;
     private MessageRecyclerFragmentViewModel mMessageRecyclerFragmentViewModel;

@@ -3,29 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/recyclerFragment">
+    app:startDestination="@id/boardsFragment">
 
     <fragment
-        android:id="@+id/threadsFragment"
-        android:name="com.example.mitchrv.fragments.ThreadsFragment"
+        android:id="@+id/boardsFragment"
+        android:name="com.example.mitchrv.fragments.BoardsFragment"
         android:label="fragment_threads"
         tools:layout="@layout/fragment_threads">
         <action
             android:id="@+id/action_threadsFragment_to_recyclerFragment2"
-            app:destination="@id/recyclerFragment" />
+            app:destination="@id/threadsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/recyclerFragment"
-        android:name="com.example.mitchrv.fragments.RecyclerFragment"
+        android:id="@+id/threadsFragment"
+        android:name="com.example.mitchrv.fragments.ThreadsFragment"
         android:label="fragment_recycler"
         tools:layout="@layout/fragment_recycler" >
         <action
             android:id="@+id/action_recyclerFragment_to_messagesRecyclerFragment"
-            app:destination="@id/messagesRecyclerFragment" />
+            app:destination="@id/postsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/messagesRecyclerFragment"
-        android:name="com.example.mitchrv.fragments.MessagesRecyclerFragment"
+        android:id="@+id/postsFragment"
+        android:name="com.example.mitchrv.fragments.PostsFragment"
         android:label="fragment_messages_recycler"
         tools:layout="@layout/fragment_messages_recycler" >
         <action

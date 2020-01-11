@@ -4,21 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.example.mitchrv.APIs.InterfaceMainActivity;
-import com.example.mitchrv.fragments.MessagesRecyclerFragment;
-import com.example.mitchrv.fragments.RecyclerFragment;
-
-import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 import timber.log.Timber;
@@ -147,6 +140,6 @@ public class MainActivity extends DaggerAppCompatActivity implements InterfaceMa
         args.putString("image_name", imageName);
         args.putInt("num", name);
 
-        navController.navigate(R.id.messagesRecyclerFragment, args);
+        navController.navigate(R.id.postsFragment, args);
     }
 }

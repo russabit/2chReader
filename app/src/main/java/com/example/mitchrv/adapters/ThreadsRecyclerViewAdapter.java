@@ -1,7 +1,6 @@
 package com.example.mitchrv.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,10 +16,9 @@ import com.example.mitchrv.R;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class ThreadsRecyclerViewAdapter extends RecyclerView.Adapter<ThreadsRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<String> mImageNames;
     private ArrayList<String> mImages;
@@ -29,7 +26,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private OnViewListener mOnViewListener;
 
-    public RecyclerViewAdapter(Context mContext, ArrayList<String> mImageNames, ArrayList<String> mImages, OnViewListener mOnViewListener) {
+    public ThreadsRecyclerViewAdapter(Context mContext, ArrayList<String> mImageNames, ArrayList<String> mImages, OnViewListener mOnViewListener) {
         this.mContext = mContext;
         this.mImageNames = mImageNames;
         this.mImages = mImages;

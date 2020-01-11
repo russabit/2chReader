@@ -9,8 +9,6 @@ import retrofit2.http.Headers;
 
 public interface DvachAPI {
 
-    String BASE_URL = "https://2ch.hk/b/";
-
     @Headers("Content-Type: application/json")
     @GET("catalog.json")
     Observable<Feed> getStuff();

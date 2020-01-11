@@ -2,18 +2,15 @@ package com.example.mitchrv.adapters;
 
 import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -29,12 +26,12 @@ public class MessagesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     private ArrayList<String> mImages;
     private Context mContext;
 
-    private RecyclerViewAdapter.OnViewListener mOnViewListener;
+    private ThreadsRecyclerViewAdapter.OnViewListener mOnViewListener;
 
     public MessagesRecyclerViewAdapter(Context mContext,
                                        ArrayList<String> mComments,
                                        ArrayList<String> mImages,
-                                       RecyclerViewAdapter.OnViewListener mOnViewListener) {
+                                       ThreadsRecyclerViewAdapter.OnViewListener mOnViewListener) {
         this.mContext = mContext;
         this.mComments = mComments;
         this.mImages = mImages;
@@ -97,10 +94,10 @@ public class MessagesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         TextView comment;
         RelativeLayout parentLayout;
 
-        RecyclerViewAdapter.OnViewListener onViewListener;
+        ThreadsRecyclerViewAdapter.OnViewListener onViewListener;
 
         public ViewHolder(@NonNull View itemView,
-                          RecyclerViewAdapter.OnViewListener onViewListener) {
+                          ThreadsRecyclerViewAdapter.OnViewListener onViewListener) {
             super(itemView);
             comment = itemView.findViewById(R.id.comment_msg);
             parentLayout = itemView.findViewById(R.id.msg_layout);
@@ -122,9 +119,9 @@ public class MessagesRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         TextView comment;
         ConstraintLayout parentLayout;
 
-        RecyclerViewAdapter.OnViewListener onViewListener;
+        ThreadsRecyclerViewAdapter.OnViewListener onViewListener;
 
-        ImageViewHolder(@NonNull View itemView, RecyclerViewAdapter.OnViewListener onViewListener) {
+        ImageViewHolder(@NonNull View itemView, ThreadsRecyclerViewAdapter.OnViewListener onViewListener) {
             super(itemView);
             image = itemView.findViewById(R.id.image_msg);
             comment = itemView.findViewById(R.id.comment_msg_img);

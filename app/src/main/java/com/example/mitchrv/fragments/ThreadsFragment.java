@@ -1,7 +1,6 @@
 package com.example.mitchrv.fragments;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mitchrv.APIs.InterfaceMainActivity;
 import com.example.mitchrv.R;
-import com.example.mitchrv.adapters.RecyclerViewAdapter;
+import com.example.mitchrv.adapters.ThreadsRecyclerViewAdapter;
 import com.example.mitchrv.viewmodels.RecyclerFragmentViewModel;
 
 import io.reactivex.Observer;
@@ -26,9 +25,9 @@ import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
 
-public class RecyclerFragment extends Fragment implements RecyclerViewAdapter.OnViewListener {
+public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdapter.OnViewListener {
 
-    private RecyclerViewAdapter recyclerViewAdapter;
+    private ThreadsRecyclerViewAdapter recyclerViewAdapter;
     private InterfaceMainActivity mInterfaceMainActivity;
     private RecyclerFragmentViewModel mRecyclerFragmentViewModel;
     ProgressBar progressBar;
@@ -110,7 +109,7 @@ public class RecyclerFragment extends Fragment implements RecyclerViewAdapter.On
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
-        recyclerViewAdapter = new RecyclerViewAdapter(getActivity(),
+        recyclerViewAdapter = new ThreadsRecyclerViewAdapter(getActivity(),
                 mRecyclerFragmentViewModel.getNames(),
                 mRecyclerFragmentViewModel.getImageUrls(), this);
         recyclerView.setAdapter(recyclerViewAdapter);
