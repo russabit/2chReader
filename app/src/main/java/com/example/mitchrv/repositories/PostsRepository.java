@@ -52,7 +52,7 @@ public class PostsRepository {
 
     DvachMessageAPI dvachMessageAPI = retrofitMSG.create(DvachMessageAPI.class);
 
-    public Observable<Messages> getMessages(int num) {
+    public Observable<Messages> getMessages(String boardChar, int num) {
 
         if (postsCash != null) {
             Timber.d("from cash");
@@ -60,7 +60,7 @@ public class PostsRepository {
         } else {
             Timber.d("from net");
             return dvachMessageAPI
-                    .getStuff("get_thread", "pr", num, 1)
+                    .getStuff("get_thread", boardChar, num, 1)
                     .flatMap(Observable::fromIterable)
                     .doOnNext(message -> {
                         mComments.add(message.getComment());

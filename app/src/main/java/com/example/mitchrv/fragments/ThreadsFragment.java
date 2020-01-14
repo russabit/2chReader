@@ -33,6 +33,9 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
     private ThreadsFragmentViewModel threadsFragmentViewModel;
     private ProgressBar progressBar;
     private boolean progressBarIsShowing;
+    private String boardChar;
+
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -47,7 +50,7 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recycler, null);
 
-        String boardChar = getArguments().getString("boardChar");
+        boardChar = getArguments().getString("boardChar");
         initImageBitmaps(view, boardChar);
 
         return view;
@@ -88,8 +91,7 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
             public void onError(Throwable e) { }
 
             @Override
-            public void onComplete() {
-                recyclerViewAdapter.notifyDataSetChanged();
+            public void onComplete() { recyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
@@ -116,6 +118,7 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
     public void onViewClick(int position) {
         Timber.d("onViewClick: clicked!");
         mInterfaceMainActivity.inflateFragment(
+                boardChar,
                 threadsFragmentViewModel.getImageUrls().get(position),
                 threadsFragmentViewModel.getNames().get(position),
                 threadsFragmentViewModel.getNums().get(position));

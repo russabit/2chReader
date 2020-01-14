@@ -45,18 +45,19 @@ public class PostsFragment extends Fragment implements ThreadsRecyclerViewAdapte
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_messages_recycler, null);
+        String boardChar = getArguments().getString("boardChar");
         int num = getArguments().getInt("num");
         Timber.d("onCreateView: called %s", num);
-        initImageBitmaps(view, num);
+        initImageBitmaps(view, boardChar, num);
         return view;
     }
 
-    private void initImageBitmaps(View view, int num) {
+    private void initImageBitmaps(View view, String boardChar, int num) {
         Timber.d("initImageBitmaps called");
         postsFragmentViewModel = ViewModelProviders.of(this)
                 .get(PostsFragmentViewModel.class);
 
-        postsFragmentViewModel.getMessages(num).subscribe(new Observer<Messages>() {
+        postsFragmentViewModel.getMessages(boardChar, num).subscribe(new Observer<Messages>() {
 
             @Override
             public void onSubscribe(Disposable d) { }

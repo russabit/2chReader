@@ -20,8 +20,8 @@ public class PostsFragmentViewModel extends ViewModel {
         Timber.i("init");
     }
 
-    public Observable<Messages> getMessages(int num) {
-        return postsRepository.getMessages(num)
+    public Observable<Messages> getMessages(String boardChar, int num) {
+        return postsRepository.getMessages(boardChar, num)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

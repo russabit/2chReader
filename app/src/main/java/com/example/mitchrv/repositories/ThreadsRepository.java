@@ -52,8 +52,10 @@ public class ThreadsRepository {
             return dvachAPI
                     .getStuff(boardChar)
                     .flatMapIterable(Feed::getThreads)
-                    .doOnNext(threads -> mNames.add(threads.getSubject()))
-                    .doOnNext(threads -> mNums.add(threads.getNum()))
+                    .doOnNext(threads -> {
+                        mNames.add(threads.getSubject());
+                        mNums.add(threads.getNum());}
+                    )
                     .flatMap(threads -> Observable.fromArray(threads.getFiles().get(0)))
                     .doOnNext(files -> mImageUrls.add("https://2ch.hk" + files.getPath()))
                     .flatMap(files -> Observable.fromArray(files.getPath()))
