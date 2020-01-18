@@ -155,7 +155,7 @@ public class MainActivity extends DaggerAppCompatActivity implements InterfaceMa
         navController.navigate(R.id.threadsFragment, args);
     }
 
-    @Override
+    /*@Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
@@ -188,6 +188,6 @@ public class MainActivity extends DaggerAppCompatActivity implements InterfaceMa
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-    }
+    }*/
 
 }

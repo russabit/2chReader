@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/boardsFragment"
-        android:name="com.example.mitchrv.fragments.BoardsFragment"
+        android:name="com.example.mitchrv.fragments.BoardsThemedFragment"
         android:label="fragment_threads"
         tools:layout="@layout/fragment_threads">
         <action

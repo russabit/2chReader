@@ -94,21 +94,16 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
             public void onComplete() { recyclerViewAdapter.notifyDataSetChanged();
             }
         });
-
         initRecyclerView(view);
-
     }
 
     private void initRecyclerView(View view) {
-
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-
         recyclerViewAdapter = new ThreadsRecyclerViewAdapter(getActivity(),
                 threadsFragmentViewModel.getNames(),
                 threadsFragmentViewModel.getImageUrls(), this);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         //adds a divider line between the rows
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
                 LinearLayoutManager.VERTICAL));
@@ -123,4 +118,5 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
                 threadsFragmentViewModel.getNames().get(position),
                 threadsFragmentViewModel.getNums().get(position));
     }
+
 }
