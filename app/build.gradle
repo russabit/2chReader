@@ -51,7 +51,7 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
-    def lifecycle_version = "2.1.0"
+    def lifecycle_version = "2.2.0"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
@@ -67,8 +67,8 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     //nav comp
-    implementation 'androidx.navigation:navigation-fragment:2.1.0'
-    implementation 'androidx.navigation:navigation-ui:2.1.0'
+    implementation 'androidx.navigation:navigation-fragment:2.2.0'
+    implementation 'androidx.navigation:navigation-ui:2.2.0'
 
 
     //Cicerone

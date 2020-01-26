@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/themed"
+            android:title="Тематика"/>
+        <item android:id="@+id/art"
+            android:title="Творчество">
+        </item>
+        <item android:id="@+id/politics"
+            android:title="Политика и новости">
+        </item>
+        <item android:id="@+id/tech"
+            android:title="Техника и софт">
+        </item>
+        <item android:id="@+id/games"
+            android:title="Игры">
+        </item>
+        <item android:id="@+id/japan"
+            android:title="Японская культура">
+        </item>
+        <item android:id="@+id/different18"
+            android:title="Разное (18+)">
+        </item>
+        <item android:id="@+id/adult18"
+            android:title="Взрослым (18+)">
+        </item>
+    </group>
+</menu>

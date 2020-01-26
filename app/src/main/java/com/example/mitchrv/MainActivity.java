@@ -2,29 +2,80 @@ package com.example.mitchrv;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.mitchrv.APIs.BoardsInterface;
 import com.example.mitchrv.APIs.InterfaceMainActivity;
+import com.google.android.material.navigation.NavigationView;
 
 import dagger.android.support.DaggerAppCompatActivity;
 import timber.log.Timber;
 
-public class MainActivity extends DaggerAppCompatActivity implements InterfaceMainActivity, BoardsInterface {
+public class MainActivity extends DaggerAppCompatActivity implements InterfaceMainActivity, BoardsInterface, NavigationView.OnNavigationItemSelectedListener {
     //vars
     NavController navController;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+        final ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null)
+        {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+            {
+
+                public void onDrawerClosed(View view)
+                {
+                    supportInvalidateOptionsMenu();
+                    //drawerOpened = false;
+                }
+
+                public void onDrawerOpened(View drawerView)
+                {
+                    supportInvalidateOptionsMenu();
+                    //drawerOpened = true;
+                }
+            };
+            mDrawerToggle.setDrawerIndicatorEnabled(true);
+            drawerLayout.addDrawerListener(mDrawerToggle);
+            mDrawerToggle.syncState();
+
+        }
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+/*        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();*/
 
         getSupportFragmentManager().registerFragmentLifecycleCallbacks(new FragmentManager.FragmentLifecycleCallbacks() {
             @Override
@@ -127,9 +178,15 @@ public class MainActivity extends DaggerAppCompatActivity implements InterfaceMa
 
         if (navController == null)
             navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
     }
 
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else super.onBackPressed();
+    }
 
     @Override
     public void inflateFragment(String boardChar, String imageUrl, String imageName, int name) {
@@ -155,39 +212,44 @@ public class MainActivity extends DaggerAppCompatActivity implements InterfaceMa
         navController.navigate(R.id.threadsFragment, args);
     }
 
-    /*@Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            hideSystemUI();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Bundle args = new Bundle();
+        switch (menuItem.getItemId()) {
+            case R.id.themed :
+                args.putString("boardGroup", "Themed");
+                break;
+            case R.id.art :
+                args.putString("boardGroup", "Art");
+                break;
+            case R.id.politics :
+                args.putString("boardGroup", "Politics");
+                break;
+            case R.id.tech :
+                args.putString("boardGroup", "Tech");
+                break;
+            case R.id.games :
+                args.putString("boardGroup", "Games");
+                break;
+            case R.id.japan :
+                args.putString("boardGroup", "Japan");
+                break;
+            case R.id.different18 :
+                args.putString("boardGroup", "Diff");
+                break;
+            case R.id.adult18 :
+                args.putString("boardGroup", "Adult");
+                break;
         }
+        navController.navigate(R.id.boardsFragment, args);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
-
-    private void hideSystemUI() {
-        // Enables regular immersive mode.
-        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
-        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        // Set the content to appear under the system bars so that the
-                        // content doesn't resize when the system bars hide and show.
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        // Hide the nav bar and status bar
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
-    }
-
-    // Shows the system bars by removing all the flags
-    // except for the ones that make the content appear under the system bars.
-    private void showSystemUI() {
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-    }*/
-
 }

@@ -26,15 +26,15 @@ import timber.log.Timber;
 public class BoardsThemedFragment extends Fragment implements BoardsRecyclerViewAdapter.OnViewListener {
 
     //inject with dagger later?
-    private ArrayList<String> boardCharsThemed = new ArrayList<>();
-    private ArrayList<String> boardNamesThemed = new ArrayList<>();
-
-    private BoardsInterface boardsInterface;
+    private ArrayList<String> boardChars = new ArrayList<>();
+    private ArrayList<String> boardNames = new ArrayList<>();
 
     {
-        boardCharsThemed.addAll(Arrays.asList("au", "bi", "biz", "c", "cc", "em", "fa", "fiz", "fl", "ftb", "hi", "me", "mg", "mlp", "mo", "mov","mu","ne","psy","re","sci","sf","sn","sp","spc","tv","un","w","wh","wm","wp","zog"));
-        boardNamesThemed.addAll(Arrays.asList("Автомобили", "Велосипеды", "Бизнес", "Комиксы", "Криптовалюты", "Другие страны", "Мода и стиль", "Физкультура", "Ин.языки", "Футбол", "История", "Медицина", "Магия", "Пони", "Мотоциклы", "Фильмы", "Музыка", "Животные", "Психология", "Религия", "Наука", "Научная фантастика","Паранормальное","Спорт","Космос","Сериалы","Образование","Оружие","Warhammer","Военная техника","Обои и хайрез","Теории заговора"));
+        boardChars.addAll(Arrays.asList("au", "bi", "biz", "c", "cc", "em", "fa", "fiz", "fl", "ftb", "hi", "me", "mg", "mlp", "mo", "mov","mu","ne","psy","re","sci","sf","sn","sp","spc","tv","un","w","wh","wm","wp","zog"));
+        boardNames.addAll(Arrays.asList("Автомобили", "Велосипеды", "Бизнес", "Комиксы", "Криптовалюты", "Другие страны", "Мода и стиль", "Физкультура", "Ин.языки", "Футбол", "История", "Медицина", "Магия", "Пони", "Мотоциклы", "Фильмы", "Музыка", "Животные", "Психология", "Религия", "Наука", "Научная фантастика","Паранормальное","Спорт","Космос","Сериалы","Образование","Оружие","Warhammer","Военная техника","Обои и хайрез","Теории заговора"));
     }
+
+    private BoardsInterface boardsInterface;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -49,14 +49,67 @@ public class BoardsThemedFragment extends Fragment implements BoardsRecyclerView
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_boards_recycler, null);
         initRecyclerView(view);
+        Timber.d("new ThemedFrag");
+        if (savedInstanceState==null) {
+            boardChars.addAll(Arrays.asList("au", "bi", "biz", "c", "cc", "em", "fa", "fiz", "fl", "ftb", "hi", "me", "mg", "mlp", "mo", "mov","mu","ne","psy","re","sci","sf","sn","sp","spc","tv","un","w","wh","wm","wp","zog"));
+            boardNames.addAll(Arrays.asList("Автомобили", "Велосипеды", "Бизнес", "Комиксы", "Криптовалюты", "Другие страны", "Мода и стиль", "Физкультура", "Ин.языки", "Футбол", "История", "Медицина", "Магия", "Пони", "Мотоциклы", "Фильмы", "Музыка", "Животные", "Психология", "Религия", "Наука", "Научная фантастика","Паранормальное","Спорт","Космос","Сериалы","Образование","Оружие","Warhammer","Военная техника","Обои и хайрез","Теории заговора"));
+        }
+            String boardGroup = null;
+            if (getArguments() != null) {
+                boardGroup = getArguments().getString("boardGroup");
+                boardChars.clear();
+                boardNames.clear();
+                switch (boardGroup) {
+                    case "Themed": {
+                        boardChars.addAll(Arrays.asList("au", "bi", "biz", "c", "cc", "em", "fa", "fiz", "fl", "ftb", "hi", "me", "mg", "mlp", "mo", "mov","mu","ne","psy","re","sci","sf","sn","sp","spc","tv","un","w","wh","wm","wp","zog"));
+                        boardNames.addAll(Arrays.asList("Автомобили", "Велосипеды", "Бизнес", "Комиксы", "Криптовалюты", "Другие страны", "Мода и стиль", "Физкультура", "Ин.языки", "Футбол", "История", "Медицина", "Магия", "Пони", "Мотоциклы", "Фильмы", "Музыка", "Животные", "Психология", "Религия", "Наука", "Научная фантастика","Паранормальное","Спорт","Космос","Сериалы","Образование","Оружие","Warhammer","Военная техника","Обои и хайрез","Теории заговора"));
+                        break;
+                    }
+                    case "Art": {
+                        boardChars.addAll(Arrays.asList("de", "di", "diy", "mus", "pa", "p", "wrk"));
+                        boardNames.addAll(Arrays.asList("Дизайн", "Столовая", "Хобби", "Музыканты", "Живопись", "Фотография", "Работа"));
+                        break;
+                    }
+                    case "Politics": {
+                        boardChars.addAll(Arrays.asList("po","news","int","hry"));
+                        boardNames.addAll(Arrays.asList("Политика", "Новости", "International","Х Р Ю"));
+                        break;
+                    }
+                    case "Tech": {
+                        boardChars.addAll(Arrays.asList("gd","hw","mobi","pr","ra","s","t"));
+                        boardNames.addAll(Arrays.asList("Gamedev","Комп. железо","Моб. устройства","Программирование","Радиотехника","Программы","Техника"));
+                        break;
+                    }
+                    case "Games": {
+                        boardChars.addAll(Arrays.asList("bg","cg","ruvn","tes","v","vg","wr"));
+                        boardNames.addAll(Arrays.asList("Настольные игры","Консоли","Российские виз.новеллы","The Elder Scrolls","Video Games","Video Games General","Текстовые РПГ"));
+                        break;
+                    }
+                    case "Japan": {
+                        boardChars.addAll(Arrays.asList("a","fd","ja","ma","vn"));
+                        boardNames.addAll(Arrays.asList("Аниме","Фэндом","Японская культура","Манга","Визуальные новеллы"));
+                        break;
+                    }
+                    case "Diff": {
+                        boardChars.addAll(Arrays.asList("d","b","soc","media","r","api","rf","o"));
+                        boardNames.addAll(Arrays.asList("Дискуссии о Два.ч","Бред","Общение","Анимация","Реквесты","API","Убежище","Рисовач"));
+                        break;
+                    }
+                    case "Adult": {
+                        boardChars.addAll(Arrays.asList("fg","fur","gg","ga","hc","e","fet","sex","fag"));
+                        boardNames.addAll(Arrays.asList("Трапы","Фурри","Красивые девушки","Геи","Hardcore","Extreme pron","Фетиш","Секс и отношения","Фагготрия"));
+                        break;
+                    }
+                }
+            }
         return view;
     }
 
     private void initRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.boards_recycler);
-        if (boardCharsThemed.size() == 0 && boardNamesThemed.size() == 0) {
+        if (boardChars.size() == 0 && boardNames.size() == 0) {
             }
-        BoardsRecyclerViewAdapter boardsRecyclerViewAdapter = new BoardsRecyclerViewAdapter(getActivity(), boardCharsThemed, boardNamesThemed, this);
+        BoardsRecyclerViewAdapter boardsRecyclerViewAdapter = new BoardsRecyclerViewAdapter(getActivity(), boardChars, boardNames, this);
         recyclerView.setAdapter(boardsRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         /*recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
@@ -65,7 +118,7 @@ public class BoardsThemedFragment extends Fragment implements BoardsRecyclerView
 
     @Override
     public void onViewClick(int position) {
-        Timber.d("onViewClick: clicked! %s", boardCharsThemed.get(position));
-        boardsInterface.inflateThreadsFragment(boardCharsThemed.get(position));
+        Timber.d("onViewClick: clicked! %s", boardChars.get(position));
+        boardsInterface.inflateThreadsFragment(boardChars.get(position));
     }
 }

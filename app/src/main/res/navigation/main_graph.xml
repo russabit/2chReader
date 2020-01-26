@@ -9,16 +9,20 @@
         android:id="@+id/boardsFragment"
         android:name="com.example.mitchrv.fragments.BoardsThemedFragment"
         android:label="fragment_threads"
-        tools:layout="@layout/fragment_threads">
+        tools:layout="@layout/fragment_boards_recycler">
         <action
             android:id="@+id/action_threadsFragment_to_recyclerFragment2"
             app:destination="@id/threadsFragment" />
+        <argument
+            android:name="boardGroup"
+            app:argType="string"
+            android:defaultValue="Themed" />
     </fragment>
     <fragment
         android:id="@+id/threadsFragment"
         android:name="com.example.mitchrv.fragments.ThreadsFragment"
         android:label="fragment_recycler"
-        tools:layout="@layout/fragment_recycler" >
+        tools:layout="@layout/fragment_recycler">
         <action
             android:id="@+id/action_recyclerFragment_to_messagesRecyclerFragment"
             app:destination="@id/postsFragment" />
@@ -34,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.example.mitchrv.fragments.InfoFragment"
+        android:name="com.example.mitchrv.fragments.SinglePostFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
 
