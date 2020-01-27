@@ -23,7 +23,7 @@ import java.util.Arrays;
 
 import timber.log.Timber;
 
-public class BoardsThemedFragment extends Fragment implements BoardsRecyclerViewAdapter.OnViewListener {
+public class BoardsFragment extends Fragment implements BoardsRecyclerViewAdapter.OnViewListener {
 
     //inject with dagger later?
     private ArrayList<String> boardChars = new ArrayList<>();
@@ -54,7 +54,7 @@ public class BoardsThemedFragment extends Fragment implements BoardsRecyclerView
             boardChars.addAll(Arrays.asList("au", "bi", "biz", "c", "cc", "em", "fa", "fiz", "fl", "ftb", "hi", "me", "mg", "mlp", "mo", "mov","mu","ne","psy","re","sci","sf","sn","sp","spc","tv","un","w","wh","wm","wp","zog"));
             boardNames.addAll(Arrays.asList("Автомобили", "Велосипеды", "Бизнес", "Комиксы", "Криптовалюты", "Другие страны", "Мода и стиль", "Физкультура", "Ин.языки", "Футбол", "История", "Медицина", "Магия", "Пони", "Мотоциклы", "Фильмы", "Музыка", "Животные", "Психология", "Религия", "Наука", "Научная фантастика","Паранормальное","Спорт","Космос","Сериалы","Образование","Оружие","Warhammer","Военная техника","Обои и хайрез","Теории заговора"));
         }
-            String boardGroup = null;
+            String boardGroup;
             if (getArguments() != null) {
                 boardGroup = getArguments().getString("boardGroup");
                 boardChars.clear();
@@ -107,8 +107,6 @@ public class BoardsThemedFragment extends Fragment implements BoardsRecyclerView
 
     private void initRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.boards_recycler);
-        if (boardChars.size() == 0 && boardNames.size() == 0) {
-            }
         BoardsRecyclerViewAdapter boardsRecyclerViewAdapter = new BoardsRecyclerViewAdapter(getActivity(), boardChars, boardNames, this);
         recyclerView.setAdapter(boardsRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

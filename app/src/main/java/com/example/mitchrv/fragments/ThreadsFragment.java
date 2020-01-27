@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,7 +36,9 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
     private boolean progressBarIsShowing;
     private String boardChar;
 
-
+    public ThreadsFragment() {
+        Timber.d("constructor is called");
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -60,8 +63,7 @@ public class ThreadsFragment extends Fragment implements ThreadsRecyclerViewAdap
 
 
         //this or getActivity() inside of()
-        threadsFragmentViewModel = ViewModelProviders
-                .of(this)
+        threadsFragmentViewModel = new ViewModelProvider(this)
                 .get(ThreadsFragmentViewModel.class);
 
 
